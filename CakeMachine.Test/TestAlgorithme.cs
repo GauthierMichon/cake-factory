@@ -42,6 +42,7 @@ public class TestAlgorithme
     }
 
     [Theory]
+    [InlineData(typeof(AlgoPremierPas), true)]
     [InlineData(typeof(SingleThread), true)]
     [InlineData(typeof(SingleThread), false)]
     [InlineData(typeof(DeuxParDeux), true)]

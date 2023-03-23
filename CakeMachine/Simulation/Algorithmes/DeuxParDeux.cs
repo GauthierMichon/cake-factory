@@ -21,7 +21,7 @@ internal class DeuxParDeux : Algorithme
 
         while (!token.IsCancellationRequested)
         {
-            var plats = usine.StockInfiniPlats.Take(2).ToArray();
+            var plats = usine.StockInfiniPlats.Take(5).ToArray();
 
             var gâteauxCrus = plats
                 .Select(postePréparation.Préparer)
