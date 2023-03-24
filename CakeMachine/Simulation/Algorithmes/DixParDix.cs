@@ -62,7 +62,44 @@ internal class DixParDix : Algorithme
 
         while (!token.IsCancellationRequested)
         {
+
             var plats = usine.StockInfiniPlats.Take(10);
+
+            var gâteauxMoitie1CrusTache = plats.Take(5)
+                .Select(postePréparation.PréparerAsync);
+
+            var gâteauxMoitie2CrusTache = plats.Skip(5).Take(5)
+                .Select(postePréparation.PréparerAsync);
+
+            var gâteauxMoitie1Crus = await Task.WhenAll(gâteauxMoitie1CrusTache);
+
+            var gâteauxMoitie2Crus = await Task.WhenAll(gâteauxMoitie1CrusTache);
+
+            var gâteauxMoitie1CuitsTache = posteCuisson.CuireAsync(gâteauxMoitie1Crus);
+            var gâteauxMoitie1Cuits = (await Task.WhenAll(gâteauxMoitie1CuitsTache)).SelectMany(row => row).ToArray();
+
+            var gâteauxMoitie2CuitsTache = posteCuisson.CuireAsync(gâteauxMoitie2Crus);
+            var gâteauxMoitie2Cuits = (await Task.WhenAll(gâteauxMoitie2CuitsTache)).SelectMany(row => row).ToArray();
+
+            var tâchesEmballage = new List<Task<GâteauEmballé>>();
+
+            foreach (var gâteauCuit in gâteauxMoitie1Cuits)
+            {
+                tâchesEmballage.Add(posteEmballage.EmballerAsync(gâteauCuit));
+
+            }
+
+            foreach (var gâteauCuit in gâteauxMoitie2Cuits)
+            {
+                tâchesEmballage.Add(posteEmballage.EmballerAsync(gâteauCuit));
+
+            }
+
+
+            await foreach (var gâteauEmballé in tâchesEmballage.EnumerateCompleted().WithCancellation(token))
+                yield return gâteauEmballé;
+
+            /*var plats = usine.StockInfiniPlats.Take(10);
 
             var gâteauxCrus = plats
                 .Select(postePréparation.PréparerAsync)
@@ -75,7 +112,7 @@ internal class DixParDix : Algorithme
                 tâchesEmballage.Add(posteEmballage.EmballerAsync(gâteauCuit));
 
             await foreach (var gâteauEmballé in tâchesEmballage.EnumerateCompleted().WithCancellation(token))
-                yield return gâteauEmballé;
+                yield return gâteauEmballé;*/
         }
     }
 
