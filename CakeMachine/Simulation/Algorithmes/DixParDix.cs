@@ -73,7 +73,7 @@ internal class DixParDix : Algorithme
 
             var gâteauxMoitie1Crus = await Task.WhenAll(gâteauxMoitie1CrusTache);
 
-            var gâteauxMoitie2Crus = await Task.WhenAll(gâteauxMoitie1CrusTache);
+            var gâteauxMoitie2Crus = await Task.WhenAll(gâteauxMoitie2CrusTache);
 
             var gâteauxMoitie1CuitsTache = posteCuisson.CuireAsync(gâteauxMoitie1Crus);
             var gâteauxMoitie1Cuits = (await Task.WhenAll(gâteauxMoitie1CuitsTache)).SelectMany(row => row).ToArray();

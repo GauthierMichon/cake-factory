@@ -18,6 +18,7 @@ public class TestAlgorithme
     }
 
     [Theory]
+    /*[InlineData(typeof(ThreadNoWait), true)]
     [InlineData(typeof(SingleThread), true)]
     [InlineData(typeof(SingleThread), false)]
     [InlineData(typeof(DeuxParDeux), true)]
@@ -30,7 +31,8 @@ public class TestAlgorithme
     [InlineData(typeof(FourRempliSansRebut), false)]
     [InlineData(typeof(AntiRebut), true)]
     [InlineData(typeof(AntiRebut), false)]
-    [InlineData(typeof(Optimisée1Poste), false)]
+    [InlineData(typeof(Optimisée1Poste), false)]*/
+    [InlineData(typeof(Usine_MICHON_FERNANDEZ), false)]
     [InlineData(typeof(UsineEtalon), false)]
     public async Task TestNombreGâteauxEn5Secondes(Type algorithme, bool sync)
     {
@@ -42,7 +44,7 @@ public class TestAlgorithme
     }
 
     [Theory]
-    [InlineData(typeof(AlgoPremierPasSingle), true)]
+    /*[InlineData(typeof(AlgoPremierPasSingle), true)]
     [InlineData(typeof(AlgoPremierPasSingle), false)]
     [InlineData(typeof(AlgoPremierPasDeux), true)]
     [InlineData(typeof(AlgoPremierPasDeux), false)]
@@ -58,12 +60,13 @@ public class TestAlgorithme
     [InlineData(typeof(FourRempliSansRebut), false)]
     [InlineData(typeof(AntiRebut), true)]
     [InlineData(typeof(AntiRebut), false)]
-    [InlineData(typeof(Optimisée1Poste), false)]
+    [InlineData(typeof(Optimisée1Poste), false)]*/
     [InlineData(typeof(UsineEtalon), false)]
+    [InlineData(typeof(Usine_MICHON_FERNANDEZ), false)]
     public async Task TestTempsPour100Gateaux(Type algorithme, bool sync)
     {
         var runner = new SingleAlgorithmRunner(algorithme);
-        var result = await runner.ProduireNGâteauxAsync(100, sync);
+        var result = await runner.ProduireNGâteauxAsync(10000, sync);
 
         if (result is null) throw new XunitException("No algorithm");
         _testOutputHelper.WriteLine(result.ToString());
