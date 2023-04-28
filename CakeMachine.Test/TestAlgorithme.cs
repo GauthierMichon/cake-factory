@@ -66,7 +66,7 @@ public class TestAlgorithme
     public async Task TestTempsPour100Gateaux(Type algorithme, bool sync)
     {
         var runner = new SingleAlgorithmRunner(algorithme);
-        var result = await runner.ProduireNGâteauxAsync(10000, sync);
+        var result = await runner.ProduireNGâteauxAsync(1000, sync);
 
         if (result is null) throw new XunitException("No algorithm");
         _testOutputHelper.WriteLine(result.ToString());

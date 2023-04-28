@@ -16,8 +16,8 @@ internal class Usine_MICHON_FERNANDEZ : Algorithme
     public override void ConfigurerUsine(IConfigurationUsine builder)
     {
         builder.NombrePréparateurs = 10;
-        builder.NombreFours = 6;
-        builder.NombreEmballeuses = 15;
+        builder.NombreFours = 12;
+        builder.NombreEmballeuses = 13;
     }
 
     private class OrdreProduction
